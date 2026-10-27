@@ -34,7 +34,7 @@
 <footer><div class="wrap footrow"><div><div class="footbrand">رفیق 💚</div><div>آدم‌های تازه، تجربه‌های تازه.</div></div><div>تهران · در حال ساخت</div></div></footer>
 <script>
 // آدرس Web App گوگل اسکریپت (مرحله ۳) را اینجا بگذار
-const ENDPOINT='https://script.google.com/macros/s/AKfycbyVz9a1eu6wgDiMQstE8DpIW0YnNOT7LjX8gf8wJmBzxZVOD-k_MVOeD2x82xTGAZBb/exec';
+const ENDPOINT='https://script.google.com/macros/s/AKfycbzO0jqwQuG2AFFB491_JcdiBvv-6V13o-7C6CqYHKvlhvxOL0YQWVCSOdUh3yT15wiN/exec';
 
 document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.card').forEach(c=>c.style.display=b.dataset.filter==='all'||c.dataset.category===b.dataset.filter?'flex':'none')}));
 document.querySelectorAll('.interest').forEach(b=>b.addEventListener('click',()=>{document.getElementById('activity').value=b.dataset.interest;document.getElementById('join').scrollIntoView({behavior:'smooth'});document.getElementById('nickname').focus({preventScroll:true})}));
