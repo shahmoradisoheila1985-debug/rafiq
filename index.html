@@ -28,7 +28,7 @@
 <div class="field"><label for="activity">بیشتر به چی علاقه داری؟</label><select id="activity" name="activity" required><option value="">انتخاب کن</option><option>بردگیم و بازی گروهی</option><option>کافه‌گردی گروهی</option><option>پیاده‌روی و گپ دوستانه</option><option>سینما و رویدادهای فرهنگی</option><option>هر کدوم؛ دوست دارم امتحان کنم</option></select></div><div class="field"><label for="area">کدوم محدوده تهران برات مناسب‌تره؟</label><select id="area" name="area"><option value="">فرقی نداره / هنوز نمی‌دونم</option><option>شمال تهران</option><option>مرکز تهران</option><option>شرق تهران</option><option>غرب تهران</option><option>جنوب تهران</option><option>ترجیح می‌دم بعداً بگم</option></select></div>
 <div class="field"><label for="time">زمان مناسب‌تر</label><select id="time" name="time"><option value="">هنوز مشخص نیست</option><option>عصر روزهای کاری</option><option>شب‌های آخر هفته</option><option>بعدازظهر آخر هفته</option><option>برنامه منعطف</option></select></div><div class="field"><label for="contact">راه تماس (اختیاری)</label><input id="contact" name="contact" maxlength="100" placeholder="مثلاً آیدی تلگرام یا ایمیل"></div><div class="field full"><label for="notes">ایده یا توضیح (اختیاری)</label><textarea id="notes" name="notes" rows="3" maxlength="300" placeholder="دوست داری چه برنامه‌ای برگزار بشه؟"></textarea></div></div>
 <div class="hp" aria-hidden="true"><label>وب‌سایت<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-<label class="check"><input type="checkbox" id="consent" required><span>می‌دونم که اطلاعاتم برای سازنده سایت ارسال و ذخیره می‌شه و ثبت این فرم رزرو قطعی یا تعهد پرداخت نیست.</span></label><button class="btn primary" id="submitBtn" type="submit" style="width:100%">ثبت علاقه‌مندی</button><p class="formnote">اطلاعات حساس مثل نشانی منزل یا اطلاعات بانکی وارد نکن.</p><div class="success" id="success" role="status"></div></form></div></div></section>
+<label class="check"><input type="checkbox" id="consent" name="consent" value="true" required><span>می‌دونم که اطلاعاتم برای سازنده سایت ارسال و ذخیره می‌شه و ثبت این فرم رزرو قطعی یا تعهد پرداخت نیست.</span></label><button class="btn primary" id="submitBtn" type="submit" style="width:100%">ثبت علاقه‌مندی</button><p class="formnote">اطلاعات حساس مثل نشانی منزل یا اطلاعات بانکی وارد نکن.</p><div class="success" id="success" role="status"></div></form></div></div></section>
 <section id="faq"><div class="wrap"><div class="head"><div><div class="tag">سؤال‌های رایج</div><h2>قبل از شروع، این‌ها رو بدون</h2></div></div><div class="faq"><div class="faqitem"><h3>آیا دورهمی‌ها قطعی شده‌اند؟</h3><p>نه؛ فعلاً ایده‌ها رو جمع می‌کنیم. زمان، مکان و هزینه باید پیش از هر برنامه مشخص بشن.</p></div><div class="faqitem"><h3>ثبت علاقه‌مندی هزینه داره؟</h3><p>نه. ثبت فرم هیچ پرداختی نداره و به‌معنی رزرو قطعی نیست.</p></div><div class="faqitem"><h3>برای شرکت باید کسی رو بشناسم؟</h3><p>نه؛ هدف رفیق فراهم کردن امکان آشنایی در گروه‌های کوچک و فعالیت‌محوره.</p></div><div class="faqitem"><h3>چطور امن‌تر دورهمی کنیم؟</h3><p>برنامه‌ها باید در مکان عمومی برگزار بشن؛ اطلاعات شخصی غیرضروری رو به اشتراک نذار و اگر احساس ناامنی کردی، محل رو ترک کن.</p></div></div></div></section>
 <div class="wrap"><div class="cta"><div><h2>یه تجربه تازه می‌تونه از همین‌جا شروع بشه.</h2><p>به ما بگو دوست داری اولین دورهمی رفیق چی باشه.</p></div><a class="btn" href="#join">اعلام علاقه‌مندی ←</a></div></div></main>
 <footer><div class="wrap footrow"><div><div class="footbrand">رفیق 💚</div><div>آدم‌های تازه، تجربه‌های تازه.</div></div><div>تهران · در حال ساخت</div></div></footer>
@@ -49,9 +49,10 @@ form.addEventListener('submit',async e=>{
   if(ENDPOINT.indexOf('PASTE_')===0){show('فرم هنوز به محل ذخیره‌سازی وصل نشده.',true);return}
   btn.disabled=true;btn.textContent='در حال ارسال...';
   try{
-    await fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams(fd)});
-    form.reset();
-    show('ثبت شد 💚 ممنون از علاقه‌ات! هر خبری شد بهت می‌گیم.');
+   fd.set('consent', 'true');
+   await fetch(ENDPOINT, {method: 'POST',mode: 'no-cors',body: new URLSearchParams(fd)});
+   form.reset();
+   show('ثبت شد 💚 ممنون از علاقه‌ات! هر خبری شد بهت می‌گیم.');
   }catch(err){
     show('ارسال نشد. اینترنتت رو چک کن و دوباره امتحان کن.',true);
   }finally{
